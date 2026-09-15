@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StreamPulse | Movie & TV Show Discovery (REST API)</title>
+  <meta name="description" content="StreamPulse - Public REST API web application fetching and rendering live show data with loading skeletons and error states by KLUsujith.">
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-dark-theme text-light">
+
+  <!-- ================= TOP HEADER ================= -->
+  <nav class="navbar navbar-expand-lg navbar-dark border-bottom border-secondary-subtle sticky-top top-nav">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+        <div class="logo-box">
+          <i class="bi bi-film"></i>
+        </div>
+        <span class="fw-bold fs-4 tracking-tight">Stream<span class="text-accent">Pulse</span></span>
+      </a>
+
+      <div class="d-flex align-items-center gap-3 ms-auto">
+        <span class="badge api-badge d-none d-sm-inline-flex align-items-center gap-1">
+          <span class="status-indicator"></span> TVMaze Public REST API
+        </span>
+        <a href="../01-personal-portfolio/index.html" class="btn btn-outline-light btn-sm rounded-pill">
+          <i class="bi bi-arrow-left me-1"></i> Portfolio
+        </a>
+        <a href="https://github.com/KLUsujith" target="_blank" rel="noopener noreferrer" class="btn btn-brand btn-sm rounded-pill">
+          <i class="bi bi-github me-1"></i> GitHub
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ================= HERO / SEARCH BANNER ================= -->
+  <header class="search-banner py-5 text-center">
+    <div class="container py-3">
+      <div class="max-w-750 mx-auto">
+        <span class="sub-badge mb-2 d-inline-block">LIVE REST API POWERED</span>
+        <h1 class="display-5 fw-bold mb-3">Discover Movies &amp; TV Series</h1>
+        <p class="text-secondary lead mb-4">
+          Fetch live show details, ratings, genres, and stream info using asynchronous <code>fetch()</code> API with real-time debounce search.
+        </p>
+
+        <!-- Search Form -->
+        <div class="search-input-wrapper position-relative mx-auto">
+          <i class="bi bi-search search-icon"></i>
+          <input type="text" id="searchInput" class="form-control form-control-lg custom-search-bar" placeholder="Search shows (e.g. Breaking Bad, Stranger Things, Batman, Anime)..." autocomplete="off">
+          <button type="button" id="clearSearchBtn" class="clear-btn d-none" aria-label="Clear search">
+            <i class="bi bi-x-circle-fill"></i>
+          </button>
+        </div>
+
+        <!-- Quick Search Tags -->
+        <div class="quick-tags mt-3 d-flex flex-wrap justify-content-center align-items-center gap-2">
+          <span class="small text-secondary">Trending:</span>
+          <button class="quick-tag-btn" data-query="Batman">Batman</button>
+          <button class="quick-tag-btn" data-query="Game of Thrones">Game of Thrones</button>
+          <button class="quick-tag-btn" data-query="Arcane">Arcane</button>
+          <button class="quick-tag-btn" data-query="Sherlock">Sherlock</button>
+          <button class="quick-tag-btn" data-query="Stranger Things">Stranger Things</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= GENRE FILTER BAR ================= -->
+  <section class="genre-filter-section py-3 border-bottom border-secondary-subtle">
+    <div class="container">
+      <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+        <div class="d-flex align-items-center gap-2 overflow-x-auto py-1 genre-scroll" id="genreFilters">
+          <button class="genre-pill active" data-genre="all">All Genres</button>
+          <button class="genre-pill" data-genre="Action">Action</button>
+          <button class="genre-pill" data-genre="Drama">Drama</button>
+          <button class="genre-pill" data-genre="Comedy">Comedy</button>
+          <button class="genre-pill" data-genre="Science-Fiction">Sci-Fi</button>
+          <button class="genre-pill" data-genre="Crime">Crime</button>
+          <button class="genre-pill" data-genre="Thriller">Thriller</button>
+          <button class="genre-pill" data-genre="Animation">Animation</button>
+        </div>
+        <div class="results-meta small text-secondary" id="resultsCount">
+          Showing results
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MAIN CONTENT AREA ================= -->
+  <main class="py-5">
+    <div class="container">
+
+      <!-- 1. Loading Skeleton State -->
+      <div id="loadingState" class="d-none">
+        <div class="row g-4">
+          <!-- 6 skeleton cards -->
+          <div class="col-6 col-md-4 col-lg-3" v-for="i in 8">
+            <div class="skeleton-card rounded-4 p-0 overflow-hidden">
+              <div class="skeleton-poster"></div>
+              <div class="p-3">
+                <div class="skeleton-line skeleton-title mb-2"></div>
+                <div class="skeleton-line skeleton-meta mb-3"></div>
+                <div class="skeleton-line skeleton-badge"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Error State Banner -->
+      <div id="errorState" class="d-none">
+        <div class="error-banner text-center p-5 rounded-4 mx-auto max-w-600">
+          <div class="error-icon mb-3">
+            <i class="bi bi-exclamation-triangle-fill text-warning"></i>
+          </div>
+          <h3 class="h4 fw-bold mb-2">Oops! Failed to fetch data</h3>
+          <p class="text-secondary mb-4" id="errorMessage">Unable to connect to the TVMaze REST API. Please verify your internet connection or try again.</p>
+          <button class="btn btn-brand rounded-pill px-4" id="retryBtn">
+            <i class="bi bi-arrow-clockwise me-1"></i> Try Again
+          </button>
+        </div>
+      </div>
+
+      <!-- 3. Empty Search State -->
+      <div id="emptyState" class="d-none">
+        <div class="empty-banner text-center p-5 rounded-4 mx-auto max-w-600">
+          <div class="empty-icon mb-3">
+            <i class="bi bi-search text-secondary"></i>
+          </div>
+          <h3 class="h4 fw-bold mb-2">No shows found</h3>
+          <p class="text-secondary" id="emptyMessage">We couldn't find any TV shows matching your search query. Try searching for popular titles like "Breaking Bad", "Friends", or "Avengers".</p>
+        </div>
+      </div>
+
+      <!-- 4. Dynamic Show Cards Grid -->
+      <div class="row g-4" id="showsGrid">
+        <!-- Rendered via JavaScript fetch -->
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ================= SHOW DETAILS MODAL ================= -->
+  <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="modalShowTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content bg-modal border-secondary">
+        <div class="modal-header border-secondary-subtle">
+          <h2 class="modal-title h5 fw-bold" id="modalShowTitle">Show Details</h2>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-4" id="modalBody">
+          <!-- Populated dynamically via JS -->
+        </div>
+        <div class="modal-footer border-secondary-subtle">
+          <button type="button" class="btn btn-secondary btn-sm rounded-pill" data-bs-dismiss="modal">Close</button>
+          <a href="#" id="modalOfficialSite" target="_blank" rel="noopener noreferrer" class="btn btn-brand btn-sm rounded-pill">
+            <i class="bi bi-box-arrow-up-right me-1"></i> Official Website
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="py-4 border-top border-secondary-subtle bg-dark text-white-50 text-center">
+    <div class="container">
+      <p class="mb-1">StreamPulse — Built with <strong>Fetch API &amp; Async/Await</strong> by <strong>KLUsujith</strong></p>
+      <div class="small">Data generously provided by the free <a href="https://www.tvmaze.com/api" target="_blank" rel="noopener noreferrer" class="text-accent text-decoration-none">TVMaze REST API</a>.</div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- App JS -->
+  <script src="js/app.js"></script>
+</body>
+</html>
