@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spotify - Web Player: Music for everyone (Clone)</title>
+  <meta name="description" content="A pixel-accurate Spotify Web Player UI Clone built with HTML5, CSS3, and JavaScript by KLUsujith.">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Google Fonts: Circular Std alternative (Plus Jakarta Sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="spotify-layout">
+    
+    <!-- ================= LEFT SIDEBAR ================= -->
+    <aside class="sidebar" id="sidebar">
+      <!-- Top Navigation Box -->
+      <div class="nav-card">
+        <div class="logo">
+          <i class="fa-brands fa-spotify logo-icon"></i>
+          <span>Spotify</span>
+        </div>
+        <ul class="nav-menu">
+          <li class="nav-item active" data-view="home">
+            <a href="#home"><i class="fa-solid fa-house"></i> <span>Home</span></a>
+          </li>
+          <li class="nav-item" data-view="search">
+            <a href="#search"><i class="fa-solid fa-magnifying-glass"></i> <span>Search</span></a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Library Box -->
+      <div class="library-card">
+        <div class="library-header">
+          <button class="library-btn">
+            <i class="fa-solid fa-lines-leaning"></i>
+            <span>Your Library</span>
+          </button>
+          <button class="icon-btn-ghost" title="Create playlist" aria-label="Create playlist">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+        </div>
+
+        <div class="library-tags">
+          <span class="lib-tag active">Playlists</span>
+          <span class="lib-tag">Artists</span>
+          <span class="lib-tag">Albums</span>
+        </div>
+
+        <!-- Scrollable Playlist Items -->
+        <div class="playlist-list-scroll">
+          <div class="playlist-item" data-title="Liked Songs" data-artist="Playlist • 142 songs" data-cover="https://images.unsplash.com/photo-1518609878373-06d740f60d8b?w=120&auto=format&fit=crop&q=80">
+            <div class="playlist-art gradient-liked">
+              <i class="fa-solid fa-heart"></i>
+            </div>
+            <div class="playlist-info">
+              <div class="playlist-name">Liked Songs</div>
+              <div class="playlist-desc">Playlist • 142 songs</div>
+            </div>
+          </div>
+
+          <div class="playlist-item" data-title="Coding Focus Flow" data-artist="KLUsujith • 45 songs" data-cover="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=120&auto=format&fit=crop&q=80">
+            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=120&auto=format&fit=crop&q=80" alt="Cover" class="playlist-art-img">
+            <div class="playlist-info">
+              <div class="playlist-name">Coding Focus Flow</div>
+              <div class="playlist-desc">Playlist • KLUsujith</div>
+            </div>
+          </div>
+
+          <div class="playlist-item" data-title="Deep Electronic Vibes" data-artist="Spotify • 80 songs" data-cover="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=120&auto=format&fit=crop&q=80">
+            <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=120&auto=format&fit=crop&q=80" alt="Cover" class="playlist-art-img">
+            <div class="playlist-info">
+              <div class="playlist-name">Deep Electronic Vibes</div>
+              <div class="playlist-desc">Playlist • Spotify</div>
+            </div>
+          </div>
+
+          <div class="playlist-item" data-title="All Out 2010s" data-artist="Spotify • 100 songs" data-cover="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=120&auto=format&fit=crop&q=80">
+            <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=120&auto=format&fit=crop&q=80" alt="Cover" class="playlist-art-img">
+            <div class="playlist-info">
+              <div class="playlist-name">All Out 2010s</div>
+              <div class="playlist-desc">Playlist • Spotify</div>
+            </div>
+          </div>
+
+          <div class="playlist-item" data-title="Lo-Fi Beats to Relax" data-artist="ChilledCow • 62 songs" data-cover="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=120&auto=format&fit=crop&q=80">
+            <img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=120&auto=format&fit=crop&q=80" alt="Cover" class="playlist-art-img">
+            <div class="playlist-info">
+              <div class="playlist-name">Lo-Fi Beats to Relax</div>
+              <div class="playlist-desc">Playlist • Lofi Girl</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ================= MAIN CONTENT VIEW ================= -->
+    <main class="main-view" id="mainView">
+      <!-- Top Sticky Bar -->
+      <header class="top-bar">
+        <div class="history-arrows">
+          <button class="arrow-btn" title="Go back"><i class="fa-solid fa-chevron-left"></i></button>
+          <button class="arrow-btn" title="Go forward"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+
+        <div class="top-bar-actions">
+          <a href="../01-personal-portfolio/index.html" class="portfolio-back-pill">
+            <i class="fa-solid fa-arrow-left"></i> Portfolio
+          </a>
+          <button class="install-app-btn">
+            <i class="fa-regular fa-circle-down"></i> Install App
+          </button>
+          <div class="user-pill" title="KLUsujith's Profile">
+            <div class="user-avatar">
+              <i class="fa-solid fa-user"></i>
+            </div>
+            <span class="username">KLUsujith</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Content Container with Gradient -->
+      <div class="content-scroll">
+        <!-- Greetings Header -->
+        <section class="greeting-section">
+          <h1 class="greeting-title" id="greetingText">Good evening</h1>
+
+          <!-- 6-Tile Quick Access Grid -->
+          <div class="quick-tiles-grid">
+            <div class="tile-card" data-title="Liked Songs" data-artist="Your Library" data-cover="https://images.unsplash.com/photo-1518609878373-06d740f60d8b?w=300&auto=format&fit=crop&q=80">
+              <div class="tile-img-box gradient-liked">
+                <i class="fa-solid fa-heart"></i>
+              </div>
+              <span class="tile-title">Liked Songs</span>
+              <button class="tile-play-btn" aria-label="Play">
+                <i class="fa-solid fa-play"></i>
+              </button>
+            </div>
+
+            <div class="tile-card" data-title="Starboy (Deluxe)" data-artist="The Weeknd" data-cover="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=300&auto=format&fit=crop&q=80">
+              <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=300&auto=format&fit=crop&q=80" alt="Starboy" class="tile-img">
+              <span class="tile-title">Starboy (Deluxe)</span>
+              <button class="tile-play-btn" aria-label="Play">
+                <i class="fa-solid fa-play"></i>
+              </button>
+            </div>
+
+            <div class="tile-card" data-title="Coding Focus Flow" data-artist="KLUsujith" data-cover="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=300&auto=format&fit=crop&q=80">
+              <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=300&auto=format&fit=crop&q=80" alt="Coding Focus" class="tile-img">
+              <span class="tile-title">Coding Focus Flow</span>
+              <button class="tile-play-btn" aria-label="Play">
+                <i class="fa-solid fa-play"></i>
+              </button>
+            </div>
+
+            <div class="tile-card" data-title="Midnight City Radio" data-artist="M83 & Synthwave" data-cover="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=300&auto=format&fit=crop&q=80">
+              <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=300&auto=format&fit=crop&q=80" alt="Synthwave" class="tile-img">
+              <span class="tile-title">Midnight City Radio</span>
+              <button class="tile-play-btn" aria-label="Play">
+                <i class="fa-solid fa-play"></i>
+              </button>
+            </div>
+
+            <div class="tile-card" data-title="Today's Top Hits" data-artist="Dua Lipa, Drake, SZA" data-cover="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=300&auto=format&fit=crop&q=80">
+              <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=300&auto=format&fit=crop&q=80" alt="Hits" class="tile-img">
+              <span class="tile-title">Today's Top Hits</span>
+              <button class="tile-play-btn" aria-label="Play">
+                <i class="fa-solid fa-play"></i>
+              </button>
+            </div>
+
+            <div class="tile-card" data-title="Deep Electronic Vibes" data-artist="Lane 8, Rufus Du Sol" data-cover="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=300&auto=format&fit=crop&q=80">
+              <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=300&auto=format&fit=crop&q=80" alt="Electronic" class="tile-img">
+              <span class="tile-title">Deep Electronic Vibes</span>
+              <button class="tile-play-btn" aria-label="Play">
+                <i class="fa-solid fa-play"></i>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section: Made for KLUsujith -->
+        <section class="section-shelf">
+          <div class="shelf-header">
+            <h2 class="shelf-title">Made for KLUsujith</h2>
+            <a href="#" class="shelf-show-all">Show all</a>
+          </div>
+          <div class="cards-row">
+            <!-- Card 1 -->
+            <div class="music-card" data-title="Daily Mix 1" data-artist="Post Malone, The Weeknd, Khalid" data-cover="https://images.unsplash.com/photo-1518609878373-06d740f60d8b?w=400&auto=format&fit=crop&q=80">
+              <div class="card-cover-wrapper">
+                <img src="https://images.unsplash.com/photo-1518609878373-06d740f60d8b?w=400&auto=format&fit=crop&q=80" alt="Daily Mix 1" class="card-cover">
+                <button class="card-play-btn"><i class="fa-solid fa-play"></i></button>
+              </div>
+              <h3 class="card-title">Daily Mix 1</h3>
+              <p class="card-desc">Post Malone, The Weeknd, Khalid and more</p>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="music-card" data-title="Discover Weekly" data-artist="Your weekly mixtape of fresh music" data-cover="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&auto=format&fit=crop&q=80">
+              <div class="card-cover-wrapper">
+                <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&auto=format&fit=crop&q=80" alt="Discover Weekly" class="card-cover">
+                <button class="card-play-btn"><i class="fa-solid fa-play"></i></button>
+              </div>
+              <h3 class="card-title">Discover Weekly</h3>
+              <p class="card-desc">Your weekly mixtape of fresh music and deep cuts.</p>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="music-card" data-title="Release Radar" data-artist="Catch all the newest music from artists you follow" data-cover="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&auto=format&fit=crop&q=80">
+              <div class="card-cover-wrapper">
+                <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&auto=format&fit=crop&q=80" alt="Release Radar" class="card-cover">
+                <button class="card-play-btn"><i class="fa-solid fa-play"></i></button>
+              </div>
+              <h3 class="card-title">Release Radar</h3>
+              <p class="card-desc">Catch all the newest music from artists you follow.</p>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="music-card" data-title="Chill Hits" data-artist="Kick back to the best chill pop tunes" data-cover="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=400&auto=format&fit=crop&q=80">
+              <div class="card-cover-wrapper">
+                <img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=400&auto=format&fit=crop&q=80" alt="Chill Hits" class="card-cover">
+                <button class="card-play-btn"><i class="fa-solid fa-play"></i></button>
+              </div>
+              <h3 class="card-title">Chill Hits</h3>
+              <p class="card-desc">Kick back to the best chill pop tunes.</p>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="music-card" data-title="Mega Hit Mix" data-artist="A mega mix of 75 chart-topping hits" data-cover="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400&auto=format&fit=crop&q=80">
+              <div class="card-cover-wrapper">
+                <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400&auto=format&fit=crop&q=80" alt="Mega Hit Mix" class="card-cover">
+                <button class="card-play-btn"><i class="fa-solid fa-play"></i></button>
+              </div>
+              <h3 class="card-title">Mega Hit Mix</h3>
+              <p class="card-desc">A mega mix of 75 chart-topping global hits.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section: Popular Albums & Playlists -->
+        <section class="section-shelf">
+          <div class="shelf-header">
+            <h2 class="shelf-title">Popular Playlists</h2>
+            <a href="#" class="shelf-show-all">Show all</a>
+          </div>
+          <div class="cards-row">
+            <div class="music-card" data-title="Deep Focus" data-artist="Keep calm and focus with ambient study music" data-cover="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&auto=format&fit=crop&q=80">
+              <div class="card-cover-wrapper">
+                <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&auto=format&fit=crop&q=80" alt="Deep Focus" class="card-cover">
+                <button class="card-play-btn"><i class="fa-solid fa-play"></i></button>
+              </div>
+              <h3 class="card-title">Deep Focus</h3>
+              <p class="card-desc">Keep calm and focus with ambient study music.</p>
+            </div>
+
+            <div class="music-card" data-title="Rock Classics" data-artist="Rock legends &amp; epic guitar anthems" data-cover="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=400&auto=format&fit=crop&q=80">
+              <div class="card-cover-wrapper">
+                <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=400&auto=format&fit=crop&q=80" alt="Rock Classics" class="card-cover">
+                <button class="card-play-btn"><i class="fa-solid fa-play"></i></button>
+              </div>
+              <h3 class="card-title">Rock Classics</h3>
+              <p class="card-desc">Rock legends &amp; epic guitar anthems.</p>
+            </div>
+
+            <div class="music-card" data-title="Beast Mode" data-artist="Energy-charged workout beats" data-cover="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=400&auto=format&fit=crop&q=80">
+              <div class="card-cover-wrapper">
+                <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=400&auto=format&fit=crop&q=80" alt="Beast Mode" class="card-cover">
+                <button class="card-play-btn"><i class="fa-solid fa-play"></i></button>
+              </div>
+              <h3 class="card-title">Beast Mode</h3>
+              <p class="card-desc">Energy-charged workout beats and bass.</p>
+            </div>
+
+            <div class="music-card" data-title="Peaceful Piano" data-artist="Relax and indulge with beautiful piano pieces" data-cover="https://images.unsplash.com/photo-1518609878373-06d740f60d8b?w=400&auto=format&fit=crop&q=80">
+              <div class="card-cover-wrapper">
+                <img src="https://images.unsplash.com/photo-1518609878373-06d740f60d8b?w=400&auto=format&fit=crop&q=80" alt="Peaceful Piano" class="card-cover">
+                <button class="card-play-btn"><i class="fa-solid fa-play"></i></button>
+              </div>
+              <h3 class="card-title">Peaceful Piano</h3>
+              <p class="card-desc">Relax and indulge with beautiful piano pieces.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Footer inside scroll view -->
+        <footer class="spotify-footer">
+          <div class="footer-columns">
+            <div class="footer-col">
+              <h4>Company</h4>
+              <a href="#">About</a>
+              <a href="#">Jobs</a>
+              <a href="#">For the Record</a>
+            </div>
+            <div class="footer-col">
+              <h4>Communities</h4>
+              <a href="#">For Artists</a>
+              <a href="#">Developers</a>
+              <a href="#">Advertising</a>
+            </div>
+            <div class="footer-col">
+              <h4>Useful links</h4>
+              <a href="#">Support</a>
+              <a href="#">Free Mobile App</a>
+            </div>
+          </div>
+          <div class="footer-bottom">
+            <span>© 2026 Spotify AB Clone — Engineered for educational purposes by <strong>KLUsujith</strong></span>
+          </div>
+        </footer>
+      </div>
+    </main>
+
+    <!-- ================= BOTTOM AUDIO PLAYER BAR ================= -->
+    <footer class="player-bar" id="playerBar">
+      <!-- Left: Track Info -->
+      <div class="player-track-info">
+        <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=120&auto=format&fit=crop&q=80" alt="Current Album Art" id="playerCover" class="track-thumb">
+        <div class="track-details">
+          <div class="track-name" id="playerTitle">Starboy (Deluxe)</div>
+          <div class="track-artist" id="playerArtist">The Weeknd, Daft Punk</div>
+        </div>
+        <button class="track-like-btn" id="likeBtn" title="Save to Your Library" aria-label="Save to Your Library">
+          <i class="fa-regular fa-heart"></i>
+        </button>
+      </div>
+
+      <!-- Center: Controls & Progress -->
+      <div class="player-controls-center">
+        <div class="control-buttons">
+          <button class="ctrl-btn-icon" id="shuffleBtn" title="Enable shuffle" aria-label="Shuffle">
+            <i class="fa-solid fa-shuffle"></i>
+          </button>
+          <button class="ctrl-btn-icon" id="prevBtn" title="Previous" aria-label="Previous">
+            <i class="fa-solid fa-backward-step"></i>
+          </button>
+          <button class="play-pause-circle" id="playPauseBtn" title="Play or Pause" aria-label="Play or Pause">
+            <i class="fa-solid fa-play" id="playPauseIcon"></i>
+          </button>
+          <button class="ctrl-btn-icon" id="nextBtn" title="Next" aria-label="Next">
+            <i class="fa-solid fa-forward-step"></i>
+          </button>
+          <button class="ctrl-btn-icon" id="repeatBtn" title="Enable repeat" aria-label="Repeat">
+            <i class="fa-solid fa-repeat"></i>
+          </button>
+        </div>
+
+        <div class="playback-bar">
+          <span class="time-stamp" id="currentTime">0:00</span>
+          <div class="progress-bar-container" id="progressContainer">
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" id="playerProgress" style="width: 25%"></div>
+            </div>
+          </div>
+          <span class="time-stamp" id="totalDuration">3:50</span>
+        </div>
+      </div>
+
+      <!-- Right: Extra Controls & Volume -->
+      <div class="player-extra-controls">
+        <button class="ctrl-btn-icon" title="Lyrics"><i class="fa-solid fa-microphone-lines"></i></button>
+        <button class="ctrl-btn-icon" title="Queue"><i class="fa-solid fa-layer-group"></i></button>
+        <button class="ctrl-btn-icon" title="Connect to a device"><i class="fa-solid fa-computer"></i></button>
+        
+        <div class="volume-bar-wrapper">
+          <button class="ctrl-btn-icon" id="muteBtn" title="Mute/Unmute"><i class="fa-solid fa-volume-high" id="volumeIcon"></i></button>
+          <div class="volume-slider-container" id="volumeContainer">
+            <div class="volume-bar-bg">
+              <div class="volume-bar-fill" id="volumeFill" style="width: 70%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Script -->
+  <script src="js/script.js"></script>
+</body>
+</html>
