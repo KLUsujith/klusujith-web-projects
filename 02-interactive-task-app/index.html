@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaskFlow | Interactive Task & Productivity App</title>
+  <meta name="description" content="TaskFlow - A modern interactive task manager built with Vanilla JavaScript DOM manipulation and localStorage by KLUsujith.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-top">
+        <div class="brand">
+          <div class="logo-icon">
+            <i class="fa-solid fa-check-double"></i>
+          </div>
+          <div>
+            <h1>TaskFlow</h1>
+            <p class="subtitle">Interactive DOM Productivity Hub by <strong>KLUsujith</strong></p>
+          </div>
+        </div>
+        <div class="header-actions">
+          <span class="date-badge" id="currentDateBadge"><i class="fa-regular fa-calendar"></i> Today</span>
+        </div>
+      </div>
+
+      <!-- Stats & Progress Bar -->
+      <div class="progress-card">
+        <div class="progress-info">
+          <div>
+            <span class="progress-title">Productivity Progress</span>
+            <div class="progress-stats">
+              <span id="completedCount">0</span> of <span id="totalCount">0</span> tasks completed
+            </div>
+          </div>
+          <div class="percentage-pill" id="percentPill">0%</div>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="app-main">
+      <!-- Task Creation Form Card -->
+      <section class="task-form-card">
+        <form id="taskForm" autocomplete="off">
+          <div class="input-row">
+            <div class="input-group flex-grow">
+              <i class="fa-solid fa-pen input-icon"></i>
+              <input type="text" id="taskInput" placeholder="What needs to be done today?" required>
+            </div>
+            <button type="submit" class="btn-primary" id="addTaskBtn">
+              <i class="fa-solid fa-plus"></i>
+              <span>Add Task</span>
+            </button>
+          </div>
+
+          <!-- Extra Task Metadata Options -->
+          <div class="options-row">
+            <div class="option-item">
+              <label for="categorySelect"><i class="fa-solid fa-tag"></i> Category</label>
+              <select id="categorySelect">
+                <option value="Work">💼 Work</option>
+                <option value="Personal">🏡 Personal</option>
+                <option value="Study">📚 Study</option>
+                <option value="Urgent">⚡ Urgent</option>
+              </select>
+            </div>
+
+            <div class="option-item">
+              <label for="prioritySelect"><i class="fa-solid fa-flag"></i> Priority</label>
+              <select id="prioritySelect">
+                <option value="medium">🟡 Medium</option>
+                <option value="high">🔴 High</option>
+                <option value="low">🟢 Low</option>
+              </select>
+            </div>
+
+            <div class="option-item">
+              <label for="dueDateInput"><i class="fa-regular fa-clock"></i> Due Date</label>
+              <input type="date" id="dueDateInput">
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <!-- Search & Filter Controls -->
+      <section class="controls-card">
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" id="searchInput" placeholder="Search tasks by title or category...">
+          <button type="button" id="clearSearchBtn" class="clear-search-btn" title="Clear search">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="filter-toolbar">
+          <div class="filter-tabs" id="filterTabs">
+            <button class="filter-tab active" data-filter="all">
+              All <span class="badge" id="badgeAll">0</span>
+            </button>
+            <button class="filter-tab" data-filter="active">
+              Active <span class="badge" id="badgeActive">0</span>
+            </button>
+            <button class="filter-tab" data-filter="completed">
+              Completed <span class="badge" id="badgeCompleted">0</span>
+            </button>
+          </div>
+
+          <div class="toolbar-actions">
+            <button class="btn-outline-danger btn-sm" id="clearCompletedBtn" title="Remove finished tasks">
+              <i class="fa-regular fa-trash-can"></i> Clear Completed
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Task List Container -->
+      <section class="tasks-section">
+        <ul class="task-list" id="taskList" aria-live="polite">
+          <!-- Dynamically populated via DOM manipulation -->
+        </ul>
+
+        <!-- Empty State View -->
+        <div class="empty-state d-none" id="emptyState">
+          <div class="empty-icon">
+            <i class="fa-regular fa-clipboard"></i>
+          </div>
+          <h3 id="emptyTitle">No tasks found</h3>
+          <p id="emptySubtitle">Add a task above to jumpstart your productivity!</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>Built with <strong>Vanilla DOM Manipulation</strong> &amp; <code>localStorage</code> for <strong>KLUsujith</strong></p>
+      <div class="footer-links">
+        <a href="../01-personal-portfolio/index.html"><i class="fa-solid fa-arrow-left"></i> Back to Portfolio</a>
+        <span>•</span>
+        <a href="https://github.com/KLUsujith" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> GitHub</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- App Script -->
+  <script src="js/app.js"></script>
+</body>
+</html>
